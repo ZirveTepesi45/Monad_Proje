@@ -1,6 +1,7 @@
 'use client'
 
 import { useAccount, useWriteContract } from 'wagmi'
+import { parseEther } from 'viem'
 import { PREDICTION_CONTRACT_ADDRESS, PREDICTION_ABI } from '../contract'
 
 export function PredictionForm() {
@@ -14,7 +15,8 @@ export function PredictionForm() {
       address: PREDICTION_CONTRACT_ADDRESS,
       abi: PREDICTION_ABI,
       functionName: 'submitPrediction',
-      args: [],
+      args: [], // Eğer Batuhan fonksiyonu parametreli yaptıysa buraya yazılır (Örn: [1])
+      value: parseEther('0.01'), // Payable olduğu için gönderilmesi gereken miktar (Batuhan'a sorabilirsin)
     })
   }
 
@@ -24,7 +26,7 @@ export function PredictionForm() {
       
       {!isConnected ? (
         <p className="text-yellow-400 text-sm">
-          Tahminde bulunmak için lütfen önce yukarıdan cüzdanınızı bağlayın.
+          Tahminde bulunmak için lütfen önce cüzdanınızı bağlayın.
         </p>
       ) : (
         <button
